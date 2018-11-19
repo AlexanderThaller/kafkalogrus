@@ -22,7 +22,8 @@ NewKafkaLogrusHook(id string,
                    formatter logrus.Formatter, 
                    brokers []string, 
                    defaultTopic string, 
-                   injectHostname bool) (*KafkaHook, error)
+                   injectHostname bool
+                   tls *tls.Config) (*KafkaHook, error)
 ```
 
 - id: hook identifier
@@ -35,13 +36,14 @@ NewKafkaLogrusHook(id string,
 For example:
 
 ```Go
-hook, err := kl.NewKafkaHook(
+hook, err := kl.NewKafkaLogrusHook(
         "klh",
         []logrus.Level{logrus.InfoLevel, logrus.WarnLevel, logrus.ErrorLevel},
         &logrus.JSONFormatter{},
         []string{"192.168.60.5:9092", "192.168.60.6:9092", "192.168.60.7:9092"},
         "test",
-        true
+        true,
+        nil,
     )
 ```
 
